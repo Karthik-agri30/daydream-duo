@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    background-color: #FAF5FF;
+    color: #332042;
+    overflow-x: hidden;
+  }
+}
+
+/* Glassmorphism & Custom Accents */
+.glass-card {
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(233, 213, 255, 0.7);
+}
+
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-4px);
+  border-color: rgba(167, 139, 250, 0.8);
+  box-shadow: 0 16px 32px -8px rgba(167, 139, 250, 0.28), 0 0 0 1px rgba(167, 139, 250, 0.2);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(233, 213, 255, 0.8);
+  box-shadow: 0 4px 14px rgba(167, 139, 250, 0.12);
+}
+
+/* Paper Stationery Styling for Handwritten Letter */
+.paper-texture {
+  background-color: #FFFDF9;
+  background-image: 
+    radial-gradient(#EDE9FE 0.75px, transparent 0.75px),
+    radial-gradient(#EDE9FE 0.75px, #FFFDF9 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  box-shadow: 0 10px 40px rgba(124, 58, 237, 0.12), inset 0 0 60px rgba(243, 232, 255, 0.6);
+  border: 1px solid #E9D5FF;
+}
+
+/* Custom Letter Lines */
+.lined-paper {
+  background-color: #FFFDF9;
+  background-image: linear-gradient(#F3E8FF 1px, transparent 1px);
+  background-size: 100% 2.2rem;
+  line-height: 2.2rem;
+}
+
+/* Washi Tape Scrapbook Effect */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(233, 213, 255, 0.8);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transform: rotate(-3deg);
+  border-left: 2px dashed rgba(167, 139, 250, 0.4);
+  border-right: 2px dashed rgba(167, 139, 250, 0.4);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3E8FF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4B5FD;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A78BFA;
+}
+
+/* ========================================================
+   ✨ DREAMY 3D STORYBOOK PAGE TRANSITION ANIMATIONS
+   ======================================================== */
+
+@keyframes pageTurnNext {
+  0% {
+    opacity: 0;
+    transform: perspective(1400px) translateX(80px) rotateY(9deg) scale(0.94);
+    filter: blur(6px);
+  }
+  60% {
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1400px) translateX(0) rotateY(0deg) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes pageTurnPrev {
+  0% {
+    opacity: 0;
+    transform: perspective(1400px) translateX(-80px) rotateY(-9deg) scale(0.94);
+    filter: blur(6px);
+  }
+  60% {
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1400px) translateX(0) rotateY(0deg) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.page-flip-next {
+  animation: pageTurnNext 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: left center;
+}
+
+.page-flip-prev {
+  animation: pageTurnPrev 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: right center;
+}
+
+/* Shimmer Portal Light Sweep during page turns */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.shimmer-curtain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background: linear-gradient(
+    105deg,
+    transparent 15%,
+    rgba(233, 213, 255, 0.25) 35%,
+    rgba(191, 219, 254, 0.65) 48%,
+    rgba(167, 139, 250, 0.75) 52%,
+    rgba(243, 232, 255, 0.45) 60%,
+    transparent 85%
+  );
+  animation: shimmerSweep 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Subtle glow pulse */
+@keyframes pulseGlowSlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.4));
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.7));
+  }
+}
+
+.animate-glow-slow {
+  animation: pulseGlowSlow 4s ease-in-out infinite;
+}
