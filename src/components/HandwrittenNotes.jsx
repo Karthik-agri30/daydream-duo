@@ -4,37 +4,37 @@ import { PenLine, X, ChevronLeft, ChevronRight, ZoomIn, Sparkles } from 'lucide-
 const notePhotos = [
   {
     id: 1,
-    url: '/images/notes/note_1.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_1.jpg`,
     title: 'Note Page 1',
     caption: 'Namma Kulla Sanda Vanthuchu... — The heart of every word written here. 💜',
   },
   {
     id: 2,
-    url: '/images/notes/note_2.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_2.jpg`,
     title: 'Note Page 2',
     caption: '"Nee Happy ahh Iruntha Naanum Happy." — Words written with pure care.',
   },
   {
     id: 3,
-    url: '/images/notes/note_3.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_3.jpg`,
     title: 'Note Page 3',
     caption: 'Every line, a little piece of this bond written in ink. 🤍',
   },
   {
     id: 4,
-    url: '/images/notes/note_4.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_4.jpg`,
     title: 'Note Page 4',
     caption: '"Thank you Diii..." — Gratitude that no words can fully capture.',
   },
   {
     id: 5,
-    url: '/images/notes/note_5.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_5.jpg`,
     title: 'Note Page 5',
     caption: '"So, Happy Raksha Bandhan! Stay Happy, Stay the same..." 🎉',
   },
   {
     id: 6,
-    url: '/images/notes/note_6.jpg',
+    url: `${import.meta.env.BASE_URL}images/notes/note_6.jpg`,
     title: 'Note Page 6',
     caption: 'Signed — Your Friend & Bro. Always. ✍️',
   },

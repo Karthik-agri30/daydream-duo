@@ -28,7 +28,7 @@ export const letterContent = {
       id: 1,
       title: "Handwritten Letter – Page 1",
       description: "Dear Rakesha — The opening page penned with love.",
-      url: "/images/letter/letter_page_1.jpg",
+      url: `${import.meta.env.BASE_URL}images/letter/letter_page_1.jpg`,
       caption: "Dear Rakesha... — Written on a clipboard, straight from the heart. 💜",
       date: "Raksha Bandhan",
       tag: "Original Letter"
@@ -37,7 +37,7 @@ export const letterContent = {
       id: 2,
       title: "Handwritten Letter – Page 2",
       description: "Namma Kulla Sanda Vanthuchu — The heart of the letter.",
-      url: "/images/letter/letter_page_2.jpg",
+      url: `${import.meta.env.BASE_URL}images/letter/letter_page_2.jpg`,
       caption: "\"Nee Happy ahh Iruntha Naanum Happy...\" — The soul of every word written here.",
       date: "Raksha Bandhan",
       tag: "Original Letter"
@@ -46,7 +46,7 @@ export const letterContent = {
       id: 3,
       title: "Handwritten Letter – Page 3",
       description: "Thank you Diii... Happy Raksha Bandhan!",
-      url: "/images/letter/letter_page_3.jpg",
+      url: `${import.meta.env.BASE_URL}images/letter/letter_page_3.jpg`,
       caption: "\"So, Happy Raksha Bandhan! Stay Happy, Stay the same...\" — Signed, your Friend & Bro. 🤍",
       date: "Raksha Bandhan",
       tag: "Original Letter"

@@ -5,6 +5,7 @@ import { songAudio } from '../utils/audioEngine';
 export default function SongTribute({ isMusicPlaying, setIsMusicPlaying }) {
   const iframeRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
+  const youtubeEmbedUrl = `https://www.youtube.com/embed/g4KADSMQDL8?enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}&playsinline=1&rel=0`;
 
   useEffect(() => {
     if (iframeRef.current) {
@@ -35,7 +36,7 @@ export default function SongTribute({ isMusicPlaying, setIsMusicPlaying }) {
             ref={iframeRef}
             id="youtube-audio-player"
             className="w-full h-full"
-            src="https://www.youtube.com/embed/g4KADSMQDL8?enablejsapi=1&origin=http://localhost:5173&playsinline=1&rel=0"
+            src={youtubeEmbedUrl}
             title="Life of Pazham - Thiruchitrambalam"
             allow="autoplay; encrypted-media"
             allowFullScreen
@@ -48,8 +49,8 @@ export default function SongTribute({ isMusicPlaying, setIsMusicPlaying }) {
         <iframe
           ref={iframeRef}
           id="youtube-audio-player-hidden"
-          className="w-1 h-1 opacity-0 pointer-events-none fixed -top-40 -left-40"
-          src="https://www.youtube.com/embed/g4KADSMQDL8?enablejsapi=1&origin=http://localhost:5173&playsinline=1&rel=0"
+          className="w-[200px] h-[200px] opacity-0 pointer-events-none fixed -top-[220px] -left-[220px]"
+          src={youtubeEmbedUrl}
           title="Life of Pazham - Thiruchitrambalam (Audio Stream)"
           allow="autoplay; encrypted-media"
         />

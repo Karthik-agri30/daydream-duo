@@ -1,32 +1,29 @@
 /**
- * AUDIO ENGINE FOR "LIFE OF PAZHAM" (THIRUCHITRAMBALAM)
- * 
- * Plays the ACTUAL studio track of "Life of Pazham" (Anirudh Ravichander).
- * 
- * 1. Embeds and commands the official YouTube Studio Audio (ID: g4KADSMQDL8).
- * 2. Also checks for an offline local audio file (`/audio/life_of_pazham.mp3` or `/audio/bgm.mp3`).
- * 3. Notifies all UI listeners (Navbar, SongTribute card) so vinyl discs and wavebars animate in sync.
+ * Audio playback for the friendship anthem.
+ *
+ * Optional local audio file:
+ *   public/audio/bgm.mp3
+ *
+ * If the file is not present or cannot play, playback falls back to the
+ * embedded YouTube player registered by SongTribute.
  */
 
 class SongAudioEngine {
   constructor() {
     this.isPlaying = false;
     this.iframeElement = null;
-    this.localAudio = null;
     this.listeners = new Set();
-    this.isLocalAvailable = false;
+    this.localAudio = null;
 
-    // Check if local file exists
     if (typeof window !== 'undefined') {
-      const probeAudio = new Audio('/audio/life_of_pazham.mp3');
-      probeAudio.oncanplay = () => {
-        this.isLocalAvailable = true;
-        this.localAudio = probeAudio;
-        this.localAudio.loop = true;
-      };
-      probeAudio.onerror = () => {
-        this.isLocalAvailable = false;
-      };
+      // BASE_URL is /daydream-duo/ on GitHub Pages and / during local dev.
+      this.localAudio = new Audio(`${import.meta.env.BASE_URL}audio/bgm.mp3`);
+      this.localAudio.loop = true;
+      this.localAudio.preload = 'none';
+      this.localAudio.addEventListener('ended', () => this.notify(false));
+      this.localAudio.addEventListener('pause', () => {
+        if (this.isPlaying && this.localAudio.currentTime > 0) this.notify(false);
+      });
     }
   }
 
@@ -41,41 +38,41 @@ class SongAudioEngine {
 
   notify(state) {
     this.isPlaying = state;
-    this.listeners.forEach((cb) => cb(state));
-  }
-
-  play() {
-    // 1. If local MP3 exists, play it
-    if (this.isLocalAvailable && this.localAudio) {
-      this.localAudio.play().then(() => {
-        this.notify(true);
-      }).catch(() => {
-        this.playYouTube();
-      });
-      return;
-    }
-
-    // 2. Otherwise, play official YouTube track
-    this.playYouTube();
+    this.listeners.forEach((callback) => callback(state));
   }
 
   playYouTube() {
-    if (this.iframeElement && this.iframeElement.contentWindow) {
-      this.iframeElement.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: 'playVideo', args: '' }),
-        '*'
-      );
-      this.notify(true);
+    if (!this.iframeElement?.contentWindow) {
+      this.notify(false);
+      return;
     }
+
+    this.iframeElement.contentWindow.postMessage(
+      JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+      '*'
+    );
+    this.notify(true);
+  }
+
+  play() {
+    // Prefer a user-supplied local track. Fall back to YouTube if it is absent.
+    if (this.localAudio) {
+      this.localAudio.play()
+        .then(() => this.notify(true))
+        .catch(() => this.playYouTube());
+      return;
+    }
+    this.playYouTube();
   }
 
   pause() {
     if (this.localAudio && !this.localAudio.paused) {
       this.localAudio.pause();
     }
-    if (this.iframeElement && this.iframeElement.contentWindow) {
+
+    if (this.iframeElement?.contentWindow) {
       this.iframeElement.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' }),
+        JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
         '*'
       );
     }
@@ -86,10 +83,9 @@ class SongAudioEngine {
     if (this.isPlaying) {
       this.pause();
       return false;
-    } else {
-      this.play();
-      return true;
     }
+    this.play();
+    return true;
   }
 }
 
